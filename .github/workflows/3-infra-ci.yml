@@ -21,7 +21,7 @@ jobs:
     defaults:
           run:
             shell: bash
-            working-directory: ./infrastructure/dev
+            working-directory: ./infrastructure/environments/dev
             
     steps: 
       - name: Pull repo 
@@ -51,10 +51,11 @@ jobs:
         continue-on-error: true
 
   TerraformApply: 
-    name: Plan infra 
+    name: Runs apply
     runs-on: ubuntu-latest
 
     steps:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        working-directory: ./infrastructure/environments/dev
         run: terraform apply -auto-approve -input=false    
