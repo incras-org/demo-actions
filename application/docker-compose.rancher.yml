@@ -1,0 +1,12 @@
+version: "2"
+services:
+  service:
+    image: mirriad/<SERVICE_NAME>:${GIT_COMMIT}
+    environment:
+      ENV: ${ENV}
+      server.port: 80
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_HOSTNAME: ${DB_HOSTNAME}
+      PLATFORM_BASEURI: ${PLATFORM_BASEURI}
+

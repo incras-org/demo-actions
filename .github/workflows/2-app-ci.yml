@@ -1,0 +1,45 @@
+name: BuildApplication
+
+# Event behaviour 
+on:
+  pull_request:
+    branches: 
+      - "main"
+  push: 
+    branches: 
+      - "main"
+  workflow_dispatch:
+    
+jobs: 
+  BuildApp: 
+    name: Builds application 
+    runs-on: ubuntu-latest 
+
+    steps: 
+      - name: Pull repo to runner 
+        uses: action/checkout@v3 
+      
+      - name: Install dependencies
+        uses: actions/setup-java@v3
+        with: 
+          java-version: "17"
+          distribution: termurin 
+          cache: 'maven'
+      
+      - name: Run some test 
+        run: echo "running test on app"
+
+      - name: Lint files 
+        run: echo "running lint on files"  
+      
+      - name: Build app with maven 
+        working-directory: ./application
+        run: |
+          mvn --batch-mode --update-snapshots verify
+          mvn --batch-mode --update-snapshots package
+
+
+
+        
+
+

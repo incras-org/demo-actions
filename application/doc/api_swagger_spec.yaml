@@ -1,0 +1,18 @@
+openapi: 3.0.0
+info:
+  title: <?> Service
+  contact: {}
+  version: 'v1'
+servers:
+  - url: <?>
+paths:
+  /ping:
+    get:
+      description: ping pong example endpoint
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string

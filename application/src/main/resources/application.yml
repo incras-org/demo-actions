@@ -1,0 +1,23 @@
+spring:
+  liquibase:
+    change-log: classpath:db/liquibase-changelog.xml
+  datasource:
+    username: sa
+    password: password
+    url: "jdbc:h2:mem:campaing_builder_inventory;DB_CLOSE_DELAY=-1;MODE=MSSQLServer;INIT=CREATE SCHEMA IF NOT EXISTS CB"
+    driver-class-name: org.h2.Driver
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  pattern:
+    level: "%5p [%X{traceId:-},%X{spanId:-}] [%X{username:-NO_USER}]"
+
+service:
+  base-url: ${PLATFORM_BASEURI}
+  environment: ${ENV}

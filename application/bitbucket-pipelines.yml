@@ -1,0 +1,73 @@
+# This is an example Starter pipeline configuration
+# Use a skeleton to build, test and deploy using manual and parallel steps
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+
+image: atlassian/default-image:3
+
+pipelines:
+  default:
+    - parallel:
+      - step:
+         name: 'Parallel 1'
+         script:
+           - echo "Parallel 1"
+      - step:
+         name: 'Parallel 2'
+         script:
+          - echo "Parallel 2"
+    - step:
+        name: 'Build and Test'
+        caches:
+          - maven
+        script:
+          - echo "Your build and test goes here..."
+          - chmod +x mvnw
+          - ./mvnw clean install
+#    - step:
+#        name: 'sonarqube'
+#        caches:
+#          - maven
+#        script:
+#          - echo "Run Sonarqube..."
+#          - chmod +x mvnw
+#          - ./mvnw verify sonar:sonar -Dsonar.host.url=https://sonarqube.mirriad.com/ -Dsonar.login=${SONAR_TOKEN}
+    - step:
+        name: 'Docker Image'
+        services:
+          - docker
+        caches:
+          - docker
+          - maven
+        script:
+          - echo ${DOCKERHUB_PASSWORD} | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+          - chmod +x mvnw
+          - ./mvnw deploy
+    - step:
+        name: Security Scan
+        script:
+          # Run a security scan for sensitive data.
+          # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
+          - pipe: atlassian/git-secrets-scan:0.5.1
+    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+    - step:
+        name: 'Deployment to Staging'
+        deployment: staging
+        script:
+          - echo "Your deployment to staging script goes here..."
+    - step:
+        name: Deploy to Production
+        deployment: Production
+        trigger: manual
+        script:
+          - terraform -v
+#          - terraform init
+#          - terraform plan
+#          - terraform apply -auto-approve
+          - echo "Your deployment to production script goes here..."
+  branches:
+    release:
+      - step:
+          name: Special release flow
+          script:
+            - echo "Do something special for release branch..."
