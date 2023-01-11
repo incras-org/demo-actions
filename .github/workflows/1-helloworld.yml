@@ -25,7 +25,8 @@ jobs:
         - name: Echo Helloworld 
           run: echo "helloworld mirriad"
   HelloDemoJobWindows: 
-      name: Outputs hellowordl on windows 
+      name: Outputs helloword on windows
+      needs: HelloDemoJobOne 
       runs-on: windows-latest 
       
       steps: 
