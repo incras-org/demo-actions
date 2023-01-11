@@ -55,6 +55,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Pull repo 
+        uses: actions/checkout@v2       
+
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         working-directory: ./infrastructure/environments/dev
