@@ -43,8 +43,20 @@ jobs:
         run: |
           mkdir app-artefacts && cp -rf target/* app-artefacts/
           # tar -zcvf app-artefacts-${{ github.sha }}.tar.gz app-artefacts
-          tar -zcvf app-artefacts-`git rev-parse --short HEAD`.tar.gz app-artefacts
+          # tar -zcvf app-artefacts-`git rev-parse --short HEAD`.tar.gz app-artefacts
+          tar -zcvf app-artefacts-v01.tar.gz app-artefacts
           ls -ls 
+      
+      - name: Upload package 
+        working-directory: ./application 
+        uses: actions/upload-artifact@v3
+        with: 
+          name: my-app 
+          path: ./app-artefacts-v01.tar.gz
+
+
+  # UploadPackage: 
+  #   name: Fetch and upload
 
 
 
