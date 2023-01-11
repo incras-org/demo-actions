@@ -41,7 +41,7 @@ jobs:
       - name: Package target jar 
         working-directory: ./application
         run: |
-          mkdir app-artefacts && cp target/*jar-with-dependencies.jar app-artefacts
+          mkdir app-artefacts && cp -rf target/* app-artefacts/
           ls -ls 
 
 
