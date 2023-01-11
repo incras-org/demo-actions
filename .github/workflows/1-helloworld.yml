@@ -21,6 +21,8 @@ jobs:
         - name: Pull this repo runner 
           uses: actions/checkout@v2 
 
+        - name: Echo Helloworld 
+          run: echo "helloworld mirriad"
 
 
 
