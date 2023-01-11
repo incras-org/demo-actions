@@ -80,7 +80,7 @@ jobs:
 
       - name: Check file is in place 
         run: |
-          ls -l 
+          aws s3 cp ./app-artefacts-v01.tar.gz s3://vpc-states 
 
 
 
