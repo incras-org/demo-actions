@@ -47,9 +47,33 @@ jobs:
           tar -zcvf app-artefacts-v01.tar.gz app-artefacts
           ls -ls 
 
-      - name: Test
-        run: echo "later"
-       
+      - name: Upload package 
+        uses: actions/upload-artifact@v3
+        with: 
+          name: my-app 
+          path: ./app-artefacts-v01.tar.gz
+
+  PackageAndPush:
+    name: Push application to s3
+    needs: BuildApp
+    runs-on: ubuntu-latest 
+
+    steps:
+      - name: Upload to s3 
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: eu-west-1
+          role-to-assume: arn:aws:iam::658951324167:role/manual-s3-ro-oidc-role
+          role-session-name: OIDCSession  
+
+      - name: Pull shared artefacts
+        uses: actions/download-artifact@v3
+        with:
+          name: my-app
+
+      - name: Check file is in place 
+        run: |
+          ls -l 
 
 
 
