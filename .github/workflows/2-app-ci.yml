@@ -36,7 +36,13 @@ jobs:
         working-directory: ./application
         run: |
           mvn --batch-mode --update-snapshots verify
-          mvn --batch-mode --update-snapshots package
+          mvn -B package --file pom.xml -DskipTests
+
+      - name: Package target jar 
+        working-directory: ./application
+        run: |
+          mkdir app-artefacts && cp target/*jar-with-dependencies.jar app-artefacts
+          ls -ls 
 
 
 
