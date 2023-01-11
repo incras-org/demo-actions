@@ -65,8 +65,8 @@ jobs:
     steps:
       - name: Pull repo to runner 
         uses: actions/checkout@v3 
-        
-      - name: Upload to s3 
+
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: eu-west-1
