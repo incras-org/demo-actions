@@ -1,0 +1,26 @@
+name: HelloworldDemo 
+
+# Event definition 
+on: 
+    pull_request:
+      branches: 
+        - main
+    push: 
+      branches:
+        - "main"
+
+permissions: 
+  id-token: write 
+  contents: read 
+
+jobs:
+  HelloDemoJobOne: 
+      runs-on: ubuntu-latest 
+
+      steps: 
+        - name: Pull this repo runner 
+          uses: actions/checkout@v2 
+
+
+
+
