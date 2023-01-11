@@ -38,7 +38,7 @@ jobs:
 
   HelloDemoJobWindowsThree: 
       name: Outputs goodbye 
-      needs: HelloDemoJobOne 
+      needs: [HelloDemoJobOne, HelloDemoJobTwo]
       runs-on: ubuntu-latest 
       
       steps: 
