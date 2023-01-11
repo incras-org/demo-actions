@@ -42,7 +42,7 @@ jobs:
         working-directory: ./application
         run: |
           mkdir app-artefacts && cp -rf target/* app-artefacts/
-          tar -zcvf app-artefacts-{{ github.sha }}.tar.gz app-artefacts
+          tar -zcvf app-artefacts-${{ github.sha }}.tar.gz app-artefacts
           ls -ls 
 
 
