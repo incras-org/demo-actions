@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   HelloDemoJobOne: 
-      name: Outputs helooworld linux
+      name: Outputs helloworld linux
       runs-on: ubuntu-latest 
 
       steps: 
@@ -24,7 +24,7 @@ jobs:
 
         - name: Echo Helloworld 
           run: echo "helloworld mirriad"
-  HelloDemoJobWindows: 
+  HelloDemoJobTwo: 
       name: Outputs helloword on windows
       needs: HelloDemoJobOne 
       runs-on: windows-latest 
@@ -36,7 +36,14 @@ jobs:
         - name: Echo Helloworld on windows 
           run: echo "helloworld from windows runner"
 
-    
+  HelloDemoJobWindowsThree: 
+      name: Outputs goodbye 
+      needs: HelloDemoJobOne 
+      runs-on: ubuntu-latest 
+      
+      steps: 
+        - name: GoodBye job  
+          run: echo "GoodBye"
 
 
 
