@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with: 
           name: my-app 
-          path: ./app-artefacts-v01.tar.gz
+          path: ./application/app-artefacts-v01.tar.gz
 
   PackageAndPush:
     name: Push application to s3
