@@ -58,7 +58,7 @@ jobs:
           path: ./application/app-artefacts-v01.tar.gz
 
   PackageAndPush:
-    name: Push application to s3
+    name: Upload artefacts
     needs: BuildApp
     runs-on: ubuntu-latest 
 
@@ -78,7 +78,7 @@ jobs:
         with:
           name: my-app
 
-      - name: Check file is in place 
+      - name: Push artefacts to s3  
         run: |
           aws s3 cp ./app-artefacts-v01.tar.gz s3://vpc-states 
 

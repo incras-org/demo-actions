@@ -1,0 +1,51 @@
+name: InfraCiAWS
+
+on: 
+  pull_request:
+    branches: 
+      - "main" 
+  push: 
+    branches: 
+      - "main"
+  workflow_dispatch: 
+
+permissions: 
+  id-token: write 
+  contents: read 
+
+jobs: 
+  TerraformPlan: 
+    name: Plan infra 
+    runs-on: ubuntu-latest
+
+    defaults:
+          run:
+            shell: bash
+            working-directory: ./infrastructure
+            
+    steps: 
+      - name: Pull repo 
+        uses: actions/checkout@v2 
+
+      - name: Setup tf version 
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.0   
+            
+      - name: Terraform init
+        id: init
+        run: terraform init 
+  
+      - name: Terraform format
+        id: fmt
+        run: terraform fmt -check
+      
+      - name: Terraform validate
+        id: validate
+        run: terraform validate
+
+      - name: Terraform plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
