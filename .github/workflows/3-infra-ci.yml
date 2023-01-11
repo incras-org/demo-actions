@@ -21,7 +21,7 @@ jobs:
     defaults:
           run:
             shell: bash
-            working-directory: ./infrastructure
+            working-directory: ./infrastructure/dev
             
     steps: 
       - name: Pull repo 
@@ -49,3 +49,12 @@ jobs:
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
         continue-on-error: true
+
+  TerraformApply: 
+    name: Plan infra 
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false    
