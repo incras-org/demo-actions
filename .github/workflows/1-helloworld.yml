@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   HelloDemoJobOne: 
-      name: Outputs helooworld 
+      name: Outputs helooworld linux
       runs-on: ubuntu-latest 
 
       steps: 
