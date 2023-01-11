@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   HelloDemoJobOne: 
+      name: Outputs helooworld 
       runs-on: ubuntu-latest 
 
       steps: 
@@ -23,6 +24,18 @@ jobs:
 
         - name: Echo Helloworld 
           run: echo "helloworld mirriad"
+  HelloDemoJobWindows: 
+      name: Outputs hellowordl on windows 
+      runs-on: windows-latest 
+      
+      steps: 
+        - name: Pull repo again 
+          uses: actions/checkout@v3 
+
+        - name: Echo Helloworld on windows 
+          run: echo "helloworld from windows runner"
+
+    
 
 
 
